@@ -22,6 +22,15 @@ const userSchema = new mongoose.Schema({
   password: String
 });
 
+app.get('/login/', (req, res) => {
+    return new Response("lldckv", {
+        headers: {
+          "Content-Type": "text/plain; charset=UTF-8",
+          ...corsHeaders
+        }
+    });
+});
+
 app.post('/insert/', async (req, res) => {
   const login = req.body.login;
   const password = req.body.password;
