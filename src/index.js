@@ -27,12 +27,18 @@ app.post('/insert/', async (req, res) => {
   const password = req.body.password;
   const url = req.body.URL || req.body.url;
 
+  if (!url) {
+  return res.status(400).send('URL parameter is required');
+  }
+
   let connection;
   try {
-    connection = await mongoose.createConnection(url, {
+    connection = mongoose.createConnection(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
+
+    await connection.asPromise();
 
     const User = connection.model('users', userSchema, 'users');
     await User.create({ login, password });
