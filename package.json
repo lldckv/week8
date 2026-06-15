@@ -1,0 +1,17 @@
+{
+  "name": "insert-mongo-app",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "body-parser": "^1.20.2",
+    "mongoose": "5.8.11"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
