@@ -23,12 +23,7 @@ const userSchema = new mongoose.Schema({
 });
 
 app.get('/login/', (req, res) => {
-    return new Response("lldckv", {
-        headers: {
-          "Content-Type": "text/plain; charset=UTF-8",
-          ...corsHeaders
-        }
-    });
+    res.type('text/plain').send('lldckv');
 });
 
 app.post('/insert/', async (req, res) => {
@@ -43,11 +38,14 @@ app.post('/insert/', async (req, res) => {
   let connection;
   try {
     connection = mongoose.createConnection(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
     });
 
-    await connection.asPromise();
+    await new Promise((resolve, reject) => {
+    connection.once('open', resolve);
+    connection.once('error', reject);
+    });
 
     const User = connection.model('users', userSchema, 'users');
     await User.create({ login, password });
